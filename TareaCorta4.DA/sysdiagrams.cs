@@ -9,21 +9,15 @@
 
 namespace TareaCorta4.DA
 {
-    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
     
-    public partial class Platillos
+    public partial class sysdiagrams
     {
-        public int idPlatillo { get; set; }
-        public string Nombre { get; set; }
-        public int idEstado { get; set; }
-        public int idCategoria { get; set; }
-        public decimal Costo { get; set; }
-
-        [JsonIgnore]
-        public virtual Categorias Categorias { get; set; }
-        [JsonIgnore]
-        public virtual Estados Estados { get; set; }
+        public string name { get; set; }
+        public int principal_id { get; set; }
+        public int diagram_id { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }

@@ -4,10 +4,11 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="e37fa4b83c2c4032b0bb044ac57b7f72" Name="Diagram1">
+      <Diagram DiagramId="3f910722ac31407ca6a3bb9481c0bdc4" Name="Diagram1">
         <EntityTypeShape EntityType="LaCriollitaModel.Categorias" Width="1.5" PointX="0.75" PointY="1.375" IsExpanded="true" />
         <EntityTypeShape EntityType="LaCriollitaModel.Estados" Width="1.5" PointX="0.75" PointY="5.375" IsExpanded="true" />
         <EntityTypeShape EntityType="LaCriollitaModel.Platillos" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="LaCriollitaModel.sysdiagrams" Width="1.5" PointX="2.75" PointY="4.75" IsExpanded="true" />
         <AssociationConnector Association="LaCriollitaModel.FK_Platillos_Categorias" ManuallyRouted="false" />
         <AssociationConnector Association="LaCriollitaModel.FK_Platillos_Estados" ManuallyRouted="false" />
       </Diagram>

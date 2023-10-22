@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Diagnostics;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
@@ -37,64 +34,113 @@ namespace TareaCorta.API.Controllers
             return Ok(platillos);
         }
 
-        // PUT: api/Platillos/5
-        [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutPlatillos(int id, Platillos platillos)
+        // GET: api/Platillos/PorNombre/5 
+        [HttpGet]
+        [Route("api/Platillos/PorNombre/{nombre}")]
+        [ResponseType(typeof(Platillos))]
+        public async Task<IHttpActionResult> GetPlatillosPorNombre(string nombre)
         {
-            if (!ModelState.IsValid)
+            Platillos platillos = await db.Platillos.FirstOrDefaultAsync(c => c.Nombre == nombre);
+            if (platillos == null)
             {
-                return BadRequest(ModelState);
+                return NotFound();
             }
 
-            if (id != platillos.idPlatillo)
+            return Ok(platillos);
+        }
+
+        // PUT: api/Platillos/{nombre}
+        [ResponseType(typeof(void))]
+        public async Task<IHttpActionResult> PutPlatillos(string nombre, string categoria, string estado, Platillos platillos)
+        {
+            //if (!ModelState.IsValid)
+            //{
+            //    return BadRequest(ModelState);
+            //}
+
+            // Buscar el platillo por su nombre en la base de datos
+            Platillos existingPlatillo = await db.Platillos.FirstOrDefaultAsync(p => p.Nombre == nombre);
+
+            if (existingPlatillo == null)
             {
-                return BadRequest();
+                return Content(HttpStatusCode.NotFound, new { codigo = 404, mensaje = "El platillo no existe." });
             }
 
-            db.Entry(platillos).State = EntityState.Modified;
+            // validar que idestado id categoria y precio que solo se pueda cambiar algunos datos no solo todos 
+
+            if (nombre != null)
+            {
+                if (nombre.ToLower() != platillos.Nombre.ToLower())
+                {
+                    existingPlatillo.Nombre = platillos.Nombre;
+                }
+            }
+
+            if (categoria != null)
+            {
+                var existingCategoria = await db.Categorias.FirstOrDefaultAsync(c => c.Nombre == categoria);
+
+                if (existingCategoria.idCategoria != platillos.idCategoria)
+                {
+                    existingPlatillo.idCategoria = existingCategoria.idCategoria;
+                }
+            }
+
+            if (estado != null)
+            {
+                var existingEstado = await db.Estados.FirstOrDefaultAsync(e => e.Nombre == estado);
+
+                if (existingEstado.idEstado != platillos.idEstado)
+                {
+                    existingPlatillo.idEstado = existingEstado.idEstado;
+                }
+            }
+
+            if (platillos.Costo > 0)
+            {
+                if (existingPlatillo.Costo != platillos.Costo)
+                {
+                    existingPlatillo.Costo = platillos.Costo;
+                }
+            }
 
             try
             {
                 await db.SaveChangesAsync();
             }
-            catch (DbUpdateConcurrencyException)
+            catch (Exception ex)
             {
-                if (!PlatillosExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                // Manejar errores específicos de tu aplicación
+                return InternalServerError(ex);
             }
 
             return StatusCode(HttpStatusCode.NoContent);
+
         }
 
 
-
-
-         
-
         // PUT: api/Platillos/Activar/5
         [ResponseType(typeof(void))]
-        [Route("api/Platillos/Activar/{id}")] 
-        public async Task<IHttpActionResult> PutPlatillosActivar(int id)
+        [Route("api/Platillos/Activar/{nombre}")]
+        public async Task<IHttpActionResult> PutPlatillosActivar(string nombre)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
-            } 
-             
-            var existingEntity = await db.Platillos.FindAsync(id);
+            }
 
-            if (existingEntity == null)
-                return Content(HttpStatusCode.NotFound, new { mensaje = id });
+            Platillos existingPlatillo = await db.Platillos.FirstOrDefaultAsync(p => p.Nombre == nombre);
 
-            existingEntity.idEstado = 1;
+            //var existingEntity = await db.Platillos.FindAsync(nombre);
 
-            db.Entry(existingEntity).State = EntityState.Modified;
+            if (existingPlatillo == null)
+            {
+                return Content(HttpStatusCode.NotFound, new { codigo = 404, mensaje = "El platillo no existe." });
+            }
+
+            existingPlatillo.idEstado = 1;
+
+            db.Entry(existingPlatillo).State = EntityState.Modified;
 
             try
             {
@@ -102,9 +148,11 @@ namespace TareaCorta.API.Controllers
             }
             catch (DbUpdateConcurrencyException exd)
             {
-                if (!PlatillosExists(id))
+
+
+                if (!PlatillosExists(existingPlatillo.idPlatillo))
                 {
-                    return NotFound();
+                    return Content(HttpStatusCode.NotFound, new { codigo = 404, mensaje = "El platillo no existe." });
                 }
                 else
                 {
@@ -115,24 +163,29 @@ namespace TareaCorta.API.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // PUT: api/Platillos/Activar/5
+        // PUT: api/Platillos/Inactivar/5
         [ResponseType(typeof(void))]
-        [Route("api/Platillos/Inactivar/{id}")]
-        public async Task<IHttpActionResult> PutPlatillosInactivar(int id)
+        [Route("api/Platillos/Inactivar/{nombre}")]
+        public async Task<IHttpActionResult> PutPlatillosInactivar(string nombre)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
-            } 
+            }
 
-            var existingEntity = await db.Platillos.FindAsync(id);
+            Platillos existingPlatillo = await db.Platillos.FirstOrDefaultAsync(p => p.Nombre == nombre);
 
-            if (existingEntity == null)
-                return Content(HttpStatusCode.NotFound, new { mensaje = id });
+            //var existingEntity = await db.Platillos.FindAsync(nombre);
 
-            existingEntity.idEstado = 2;
+            if (existingPlatillo == null)
+            {
+                return Content(HttpStatusCode.NotFound, new { codigo = 404, mensaje = "El platillo no existe." });
+            }
 
-            db.Entry(existingEntity).State = EntityState.Modified;
+
+            existingPlatillo.idEstado = 2;
+
+            db.Entry(existingPlatillo).State = EntityState.Modified;
 
             try
             {
@@ -140,9 +193,11 @@ namespace TareaCorta.API.Controllers
             }
             catch (DbUpdateConcurrencyException exd)
             {
-                if (!PlatillosExists(id))
+
+
+                if (!PlatillosExists(existingPlatillo.idPlatillo))
                 {
-                    return NotFound();
+                    return Content(HttpStatusCode.NotFound, new { codigo = 404, mensaje = "El platillo no existe." });
                 }
                 else
                 {
@@ -152,10 +207,11 @@ namespace TareaCorta.API.Controllers
 
             return StatusCode(HttpStatusCode.NoContent);
         }
+
 
         // POST: api/Platillos
         [ResponseType(typeof(Platillos))]
-        public async Task<IHttpActionResult> PostPlatillos(Platillos platillos)
+        public async Task<IHttpActionResult> PostPlatillos(Platillos platillos, string nombreCategoria)
         {
             if (!ModelState.IsValid)
             {
@@ -163,6 +219,27 @@ namespace TareaCorta.API.Controllers
             }
 
             platillos.idEstado = 1;
+
+
+
+            // Buscar la categoría por su nombre
+            var PlatilloExistente = await db.Platillos.FirstOrDefaultAsync(p => p.Nombre == platillos.Nombre);
+
+            if (PlatilloExistente != null)
+            {
+                return Content(HttpStatusCode.Conflict, new { codigo = 409, mensaje = "El platillo ya existe" });
+            }
+
+            var categoria = await db.Categorias.FirstOrDefaultAsync(c => c.Nombre == nombreCategoria);
+
+            if (categoria == null)
+            {
+                return Content(HttpStatusCode.NotFound, new { codigo = 404, mensaje = "La categoría proporcionada no existe." });
+            }
+
+            // Asignar el ID de la categoría al platillo
+            platillos.idCategoria = categoria.idCategoria;
+
             db.Platillos.Add(platillos);
             await db.SaveChangesAsync();
 
@@ -171,18 +248,20 @@ namespace TareaCorta.API.Controllers
 
         // DELETE: api/Platillos/5
         [ResponseType(typeof(Platillos))]
-        public async Task<IHttpActionResult> DeletePlatillos(int id)
+        public async Task<IHttpActionResult> DeletePlatillos(string nombre)
         {
-            Platillos platillos = await db.Platillos.FindAsync(id);
-            if (platillos == null)
+            Platillos platillo = await db.Platillos.FirstOrDefaultAsync(p => p.Nombre == nombre);
+
+
+            if (platillo == null)
             {
-                return NotFound();
+                return Content(HttpStatusCode.NotFound, new { codigo = 404, mensaje = "Le Platillo no existe." });
             }
 
-            db.Platillos.Remove(platillos);
+            db.Platillos.Remove(platillo);
             await db.SaveChangesAsync();
 
-            return Ok(platillos);
+            return Ok(platillo);
         }
 
         protected override void Dispose(bool disposing)

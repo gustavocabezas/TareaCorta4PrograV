@@ -57,56 +57,59 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Categorias.cs">
-      <DependentUpon>TareaCorta4Model.tt</DependentUpon>
+      <DependentUpon>LaCriollitaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Estados.cs">
-      <DependentUpon>TareaCorta4Model.tt</DependentUpon>
+      <DependentUpon>LaCriollitaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LaCriollitaModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LaCriollitaModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LaCriollitaModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LaCriollitaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LaCriollitaModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LaCriollitaModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Platillos.cs">
-      <DependentUpon>TareaCorta4Model.tt</DependentUpon>
+      <DependentUpon>LaCriollitaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TareaCorta4Model.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>TareaCorta4Model.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="TareaCorta4Model.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>TareaCorta4Model.tt</DependentUpon>
-    </Compile>
-    <Compile Include="TareaCorta4Model.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>TareaCorta4Model.edmx</DependentUpon>
+    <Compile Include="sysdiagrams.cs">
+      <DependentUpon>LaCriollitaModel.tt</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="packages.config" />
-    <EntityDeploy Include="TareaCorta4Model.edmx">
+    <EntityDeploy Include="LaCriollitaModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>TareaCorta4Model.Designer.cs</LastGenOutput>
+      <LastGenOutput>LaCriollitaModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="TareaCorta4Model.edmx.diagram">
-      <DependentUpon>TareaCorta4Model.edmx</DependentUpon>
+    <None Include="LaCriollitaModel.edmx.diagram">
+      <DependentUpon>LaCriollitaModel.edmx</DependentUpon>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="TareaCorta4Model.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>TareaCorta4Model.edmx</DependentUpon>
-      <LastGenOutput>TareaCorta4Model.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="TareaCorta4Model.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>TareaCorta4Model.edmx</DependentUpon>
-      <LastGenOutput>TareaCorta4Model.cs</LastGenOutput>
-    </Content>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="LaCriollitaModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>LaCriollitaModel.edmx</DependentUpon>
+      <LastGenOutput>LaCriollitaModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="LaCriollitaModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>LaCriollitaModel.edmx</DependentUpon>
+      <LastGenOutput>LaCriollitaModel.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
