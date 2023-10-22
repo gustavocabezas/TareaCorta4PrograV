@@ -1,11 +1,11 @@
 using Swashbuckle.Application;
 using System.Web.Http;
-using TareaCorta.API;
+using TareaCorta4PrograV.API;
 using WebActivatorEx;
 
 [assembly: PreApplicationStartMethod(typeof(SwaggerConfig), "Register")]
 
-namespace TareaCorta.API
+namespace TareaCorta4PrograV.API
 {
     public class SwaggerConfig
     {
@@ -32,7 +32,7 @@ namespace TareaCorta.API
                         // hold additional metadata for an API. Version and title are required but you can also provide
                         // additional fields by chaining methods off SingleApiVersion.
                         //
-                        c.SingleApiVersion("v1", "TareaCorta.API");
+                        c.SingleApiVersion("v1", "TareaCorta4PrograV.API");
 
                         // If you want the output Swagger docs to be indented properly, enable the "PrettyPrint" option.
                         //

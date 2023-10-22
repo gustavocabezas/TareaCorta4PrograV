@@ -1,7 +1,7 @@
 ﻿using System.Web.Mvc;
 using System.Web.Routing;
 
-namespace TareaCorta.API
+namespace TareaCorta4PrograV.API
 {
     public class RouteConfig
     {

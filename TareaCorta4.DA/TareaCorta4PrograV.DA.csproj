@@ -8,8 +8,8 @@
     <ProjectGuid>{BCDBD15F-CAB6-4C94-946C-9D2FDE6255C9}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TareaCorta4.DA</RootNamespace>
-    <AssemblyName>TareaCorta4.DA</AssemblyName>
+    <RootNamespace>TareaCorta4PrograV.DA</RootNamespace>
+    <AssemblyName>TareaCorta4PrograV.DA</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>

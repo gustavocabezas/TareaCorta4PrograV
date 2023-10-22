@@ -5,9 +5,9 @@ using System.Net;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
-using TareaCorta4.DA;
+using TareaCorta4PrograV.DA;
 
-namespace TareaCorta.API.Controllers
+namespace TareaCorta4PrograV.API.Controllers
 {
     public class EstadosController : ApiController
     {

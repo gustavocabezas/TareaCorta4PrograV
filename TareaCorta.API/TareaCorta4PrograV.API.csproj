@@ -11,8 +11,8 @@
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TareaCorta.API</RootNamespace>
-    <AssemblyName>TareaCorta.API</AssemblyName>
+    <RootNamespace>TareaCorta4PrograV.API</RootNamespace>
+    <AssemblyName>TareaCorta4PrograV.API</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
@@ -143,9 +143,9 @@
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\TareaCorta4.DA\TareaCorta4.DA.csproj">
+    <ProjectReference Include="..\TareaCorta4.DA\TareaCorta4PrograV.DA.csproj">
       <Project>{bcdbd15f-cab6-4c94-946c-9d2fde6255c9}</Project>
-      <Name>TareaCorta4.DA</Name>
+      <Name>TareaCorta4PrograV.DA</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

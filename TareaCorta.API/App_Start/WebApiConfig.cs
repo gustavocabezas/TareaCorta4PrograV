@@ -1,6 +1,6 @@
 ﻿using System.Web.Http;
 
-namespace TareaCorta.API
+namespace TareaCorta4PrograV.API
 {
     public static class WebApiConfig
     {

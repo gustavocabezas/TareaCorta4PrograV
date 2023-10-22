@@ -1,1 +1,1 @@
-﻿<%@ Application Codebehind="Global.asax.cs" Inherits="TareaCorta.API.Global" Language="C#" %>
+﻿<%@ Application Codebehind="Global.asax.cs" Inherits="TareaCorta4PrograV.API.Global" Language="C#" %>
