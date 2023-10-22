@@ -69,11 +69,8 @@ namespace TareaCorta4PrograV.API.Controllers
             }
 
 
-            if (existingCategoria.Nombre.ToLower() != categorias.Nombre.ToLower())
-            {
-                existingCategoria.Nombre = categorias.Nombre;
-            }
-
+            if (existingCategoria.Nombre.ToLower() != categorias.Nombre.ToLower()) 
+                existingCategoria.Nombre = categorias.Nombre;  
 
             db.Entry(existingCategoria).State = EntityState.Modified;
 
